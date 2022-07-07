@@ -73,63 +73,73 @@ onUnmounted(() => {
   clearInterval(state.cycleId);
 });
 
-const prevArrow = ref<HTMLButtonElement>();
-const nextArrow = ref<HTMLButtonElement>();
-const carousel = ref<HTMLDivElement>();
+const prevArrowEl = ref<HTMLButtonElement>();
+const nextArrowEl = ref<HTMLButtonElement>();
+const carouselEl = ref<HTMLElement>();
 
-function onKeyDown(event: KeyboardEvent) {
-  if (event.key === "ArrowRight") {
-    nextArrow.value?.focus();
-    changeItem("next");
-    carousel.value?.focus();
-  }
+function toggleFullscreen(event: Event) {
+  // when fullscreen mode is not available
+  if (document?.fullscreenEnabled !== true) return;
 
-  if (event.key === "ArrowLeft") {
-    prevArrow.value?.focus();
-    changeItem("prev");
-    carousel.value?.focus();
-  }
+  if ("requestFullscreen" in document.documentElement) {
+    if (document.fullscreenElement === null) {
+      carouselEl.value?.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  } else if ("webkitRequestFullscreen" in document.documentElement) {
+    // "webkitRequestFullscreen" is to support safari browser
+    // typescript warns that "webkitRequestFullscreen" not exists on "document"
+    // to suppress that warning we define two types
 
-  if (event.key === "Escape") {
-    (event.target as HTMLDivElement).blur();
-  }
+    type RequestFullscreen = {
+      webkitRequestFullscreen: typeof document.documentElement.requestFullscreen;
+    };
+    type ExitFullscreen = {
+      webkitExitFullscreen: typeof document.exitFullscreen;
+    };
 
-  if (event.key === "f" && event.ctrlKey === false) {
-    // when fullscreen mode is not available
-    if (document?.fullscreenEnabled !== true) return;
-
-    if ("requestFullscreen" in document.documentElement) {
-      if (document.fullscreenElement === null) {
-        carousel.value?.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    } else if ("webkitRequestFullscreen" in document.documentElement) {
-      // "webkitRequestFullscreen" is to support safari browser
-      // typescript warns that "webkitRequestFullscreen" not exists on "document"
-      // to suppress that warning we define two types
-
-      type RequestFullscreen = {
-        webkitRequestFullscreen: typeof document.documentElement.requestFullscreen;
-      };
-      type ExitFullscreen = {
-        webkitExitFullscreen: typeof document.exitFullscreen;
-      };
-
-      if (document.fullscreenElement === null) {
-        (
-          event.target as typeof event.target & RequestFullscreen
-        ).webkitRequestFullscreen();
-      } else {
-        (document as typeof document & ExitFullscreen).webkitExitFullscreen();
-      }
+    if (document.fullscreenElement === null) {
+      (
+        event.target as typeof event.target & RequestFullscreen
+      ).webkitRequestFullscreen();
+    } else {
+      (document as typeof document & ExitFullscreen).webkitExitFullscreen();
     }
   }
 }
 
+function onKeyDown(event: KeyboardEvent) {
+  if (event.key === "ArrowRight") {
+    nextArrowEl.value?.focus();
+    changeItem("next");
+    carouselEl.value?.focus();
+  }
+
+  if (event.key === "ArrowLeft") {
+    prevArrowEl.value?.focus();
+    changeItem("prev");
+    carouselEl.value?.focus();
+  }
+
+  if (event.key === "Escape") {
+    (event.target as HTMLElement).blur();
+  }
+
+  if (event.key === "f" && event.ctrlKey === false) {
+    toggleFullscreen(event);
+  }
+}
+
+function onDoubleClick(event: MouseEvent) {
+  if (event.target === prevArrowEl.value || event.target === nextArrowEl.value)
+    return;
+  toggleFullscreen(event);
+}
+
 onMounted(() => {
   if (props.autofocus === true) {
-    carousel.value?.focus();
+    carouselEl.value?.focus();
   }
 });
 </script>
@@ -138,14 +148,15 @@ onMounted(() => {
   <div
     class="carousel"
     @keydown="onKeyDown($event)"
-    ref="carousel"
+    @dblclick.stop="onDoubleClick($event)"
+    ref="carouselEl"
     tabindex="-1"
   >
     <slot :current="state.currentItem"></slot>
     <button
       v-if="hideArrows === false"
       @click="changeItem('prev')"
-      ref="prevArrow"
+      ref="prevArrowEl"
       class="arrow prev"
     >
       &#65513;
@@ -153,7 +164,7 @@ onMounted(() => {
     <button
       v-if="hideArrows === false"
       @click="changeItem('next')"
-      ref="nextArrow"
+      ref="nextArrowEl"
       class="arrow next"
     >
       &#65515;
