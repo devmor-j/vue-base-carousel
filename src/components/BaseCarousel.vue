@@ -6,6 +6,7 @@ const props = defineProps<{
   cycle?: boolean;
   continuous?: boolean;
   autofocus?: boolean;
+  hideArrows?: boolean;
 }>();
 
 // enum item object, freezed with no prototype
@@ -134,10 +135,20 @@ onMounted(() => {
     tabindex="-1"
   >
     <slot :current="state.currentItem"></slot>
-    <button @click="changeItem('prev')" ref="prevArrow" class="arrow prev">
+    <button
+      v-if="hideArrows === false"
+      @click="changeItem('prev')"
+      ref="prevArrow"
+      class="arrow prev"
+    >
       &#65513;
     </button>
-    <button @click="changeItem('next')" ref="nextArrow" class="arrow next">
+    <button
+      v-if="hideArrows === false"
+      @click="changeItem('next')"
+      ref="nextArrow"
+      class="arrow next"
+    >
       &#65515;
     </button>
   </div>
