@@ -86,7 +86,7 @@ function onKeyDown(event: KeyboardEvent) {
     (event.target as HTMLDivElement).blur();
   }
 
-  if (event.key === "f") {
+  if (event.key === "f" && event.ctrlKey === false) {
     // when fullscreen mode is not available
     if (document?.fullscreenEnabled !== true) return;
 
