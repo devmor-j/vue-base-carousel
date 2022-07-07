@@ -27,6 +27,8 @@
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  transform: translateX(2.5%);
+  /* transform: translateX(2.5%); */
+  /* transform: scale(0.975); */
+  transform: scale(1.025);
 }
 </style>

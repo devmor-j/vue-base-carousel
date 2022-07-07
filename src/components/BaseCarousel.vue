@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, onMounted, onUnmounted } from "vue";
+import { reactive, ref, onMounted, onUnmounted } from "vue";
 
 const props = defineProps<{
   totalItems: number;
@@ -60,24 +60,96 @@ onMounted(() => {
 onUnmounted(() => {
   clearInterval(state.cycleId);
 });
+
+const prevArrow = ref<HTMLButtonElement>();
+const nextArrow = ref<HTMLButtonElement>();
+const carousel = ref<HTMLDivElement>();
+
+function onKeyDown(event: KeyboardEvent) {
+  if (event.key === "ArrowRight") {
+    nextArrow.value?.focus();
+    changeItem("next");
+    carousel.value?.focus();
+  }
+
+  if (event.key === "ArrowLeft") {
+    prevArrow.value?.focus();
+    changeItem("prev");
+    carousel.value?.focus();
+  }
+
+  if (event.key === "Escape") {
+    (event.target as HTMLDivElement).blur();
+  }
+
+  if (event.key === "f") {
+    // when fullscreen mode is not available
+    if (document?.fullscreenEnabled !== true) return;
+
+    if ("requestFullscreen" in document.documentElement) {
+      if (document.fullscreenElement === null) {
+        carousel.value?.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    } else if ("webkitRequestFullscreen" in document.documentElement) {
+      // "webkitRequestFullscreen" is to support safari browser
+      // typescript warns that "webkitRequestFullscreen" not exists on "document"
+      // to suppress that warning we define two types
+
+      type RequestFullscreen = {
+        webkitRequestFullscreen: typeof document.documentElement.requestFullscreen;
+      };
+      type ExitFullscreen = {
+        webkitExitFullscreen: typeof document.exitFullscreen;
+      };
+
+      if (document.fullscreenElement === null) {
+        (
+          event.target as typeof event.target & RequestFullscreen
+        ).webkitRequestFullscreen();
+      } else {
+        (document as typeof document & ExitFullscreen).webkitExitFullscreen();
+      }
+    }
+  }
+}
 </script>
 
 <template>
-  <div class="carousel">
+  <div
+    class="carousel"
+    @keydown="onKeyDown($event)"
+    ref="carousel"
+    tabindex="-1"
+  >
     <slot :current="state.currentItem"></slot>
-    <button @click="changeItem('prev')" class="arrow prev">&#65513;</button>
-    <button @click="changeItem('next')" class="arrow next">&#65515;</button>
+    <button @click="changeItem('prev')" ref="prevArrow" class="arrow prev">
+      &#65513;
+    </button>
+    <button @click="changeItem('next')" ref="nextArrow" class="arrow next">
+      &#65515;
+    </button>
   </div>
 </template>
 
 <style scoped>
 .carousel {
   --transition-duration: 0.2s;
+  --carousel-outline-alpha: 0.15;
   max-width: min(100%, 40rem);
   margin: auto;
   position: relative;
   overflow: hidden;
   user-select: none;
+  box-shadow: 0 0 18px rgb(0 0 0 / 0.25);
+  transition-duration: var(--transition-duration);
+  transition-property: transform;
+}
+
+.carousel:focus {
+  outline: 2px solid rgb(255 255 255 / var(--carousel-outline-alpha));
+  transform: scale(1.025);
 }
 
 .arrow {
