@@ -7,6 +7,7 @@ import BaseImage from "./components/BaseImage.vue";
 
 const state = reactive({
   carouselImages: [
+    // [ ] rename path to src
     { path: "/images/1.jpg", alt: "aerial view island" },
     { path: "/images/2.jpg", alt: "annular eclipse sunset" },
     { path: "/images/3.jpg", alt: "top view container ship" },

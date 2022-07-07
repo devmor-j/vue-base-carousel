@@ -65,3 +65,6 @@ Next features will be:
 - Navigation via *touch swipes*
 - Navigation with pagination (dots)
 - Show multiple items on each page
+- Add pause button helper when carousel cycles
+- Add fullscreen button helper for better accessibility
+- Support double touch for fullscreen mode

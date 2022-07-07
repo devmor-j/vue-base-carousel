@@ -24,6 +24,7 @@ defineProps<{
 <style scoped>
 .carousel {
   --transition-duration: 0.2s;
+  /* [ ] use v-bind to set maxWidth from BaseCarousel */
   max-width: min(100%, 40rem);
   margin: auto;
   position: relative;
