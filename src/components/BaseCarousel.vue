@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { reactive, ref, onMounted, onUnmounted } from "vue";
 
-const props = defineProps<{
+type Props = {
   totalItems: number;
   cycle?: boolean;
   continuous?: boolean;
   autofocus?: boolean;
   hideArrows?: boolean;
-}>();
+  transitionDuration?: string;
+};
+
+const props = withDefaults(defineProps<Props>(), {
+  cycle: false,
+  continuous: true,
+  transitionDuration: "0.2s",
+});
 
 // enum item object, freezed with no prototype
 const ITEM = Object.freeze(
@@ -156,7 +163,7 @@ onMounted(() => {
 
 <style scoped>
 .carousel {
-  --transition-duration: 0.2s;
+  --transition-duration: v-bind(props.transitionDuration);
   --carousel-outline-alpha: 0.15;
   max-width: min(100%, 40rem);
   margin: auto;
@@ -168,7 +175,7 @@ onMounted(() => {
   transition-property: transform;
 }
 
-.carousel:focus {
+.carousel:focus-within {
   outline: 2px solid rgb(255 255 255 / var(--carousel-outline-alpha));
   transform: scale(1.025);
 }

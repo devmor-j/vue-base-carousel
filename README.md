@@ -10,6 +10,7 @@
   - Cycle through items
   - Continuously item navigation
   - Autofocus on page load
+  - Change transition time (ex: '0.3s')
 - Excellent touch support for navigation
 - Keyboard support: (left arrow, right arrow, escape, f)
   - Left arrow goes to previous item
