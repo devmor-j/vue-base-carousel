@@ -5,6 +5,7 @@ import ImageCarouselItem from "@/components/ImageCarouselItem.vue";
 defineProps<{
   images: Array<{
     path: string;
+    alt?: string;
   }>;
 }>();
 </script>

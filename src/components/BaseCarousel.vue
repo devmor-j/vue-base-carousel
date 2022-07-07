@@ -147,12 +147,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
+  <section
     class="carousel"
     @keydown="onKeyDown($event)"
     @dblclick.stop="onDoubleClick($event)"
     ref="carouselEl"
     tabindex="-1"
+    aria-label="carousel"
+    role="region"
   >
     <slot :current="state.currentItem"></slot>
     <button
@@ -160,6 +162,7 @@ onMounted(() => {
       @click="changeItem('prev')"
       ref="prevArrowEl"
       class="arrow prev"
+      aria-label="go to prev item"
     >
       &#65513;
     </button>
@@ -168,10 +171,11 @@ onMounted(() => {
       @click="changeItem('next')"
       ref="nextArrowEl"
       class="arrow next"
+      aria-label="go to next item"
     >
       &#65515;
     </button>
-  </div>
+  </section>
 </template>
 
 <style scoped>

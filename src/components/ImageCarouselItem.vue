@@ -3,13 +3,14 @@ import BaseImage from "@/components/BaseImage.vue";
 defineProps<{
   image: {
     path: string;
+    alt?: string;
   };
 }>();
 </script>
 
 <template>
   <transition name="fade" mode="out-in" appear>
-    <BaseImage :src="image.path" :draggable="false" />
+    <BaseImage :src="image.path" :alt="image.alt" :draggable="false" />
   </transition>
 </template>
 
