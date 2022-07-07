@@ -2,6 +2,10 @@
 import { reactive, ref, onMounted, onUnmounted } from "vue";
 import useFullscreen from "@/composables/useFullscreen";
 
+/* ====================================================== */
+/*                          PROPS                         */
+/* ====================================================== */
+
 type Props = {
   totalItems: number;
   cycle?: boolean | number;
@@ -19,6 +23,10 @@ const props = withDefaults(defineProps<Props>(), {
   maxWidth: "40rem",
 });
 
+/* ====================================================== */
+/*                          STATE                         */
+/* ====================================================== */
+
 // enum item object, freezed with no prototype
 const ITEM = Object.freeze(
   Object.assign(Object.create(null), {
@@ -31,6 +39,10 @@ const state = reactive({
   currentItem: ITEM.FirstItem,
   cycleId: 0,
 });
+
+/* ====================================================== */
+/*               FEAT: Change Carousel Item               */
+/* ====================================================== */
 
 function changeItem(direction: "next" | "prev", step = 1) {
   if (direction === "next") {
@@ -64,6 +76,10 @@ function changeItem(direction: "next" | "prev", step = 1) {
   }
 }
 
+/* ====================================================== */
+/*           FEAT: Cycle Through Carousel items           */
+/* ====================================================== */
+
 onMounted(() => {
   if (props.cycle !== false) {
     const isCycleNumber = typeof props.cycle === "number";
@@ -88,9 +104,17 @@ onUnmounted(() => {
   clearInterval(state.cycleId);
 });
 
+/* ====================================================== */
+/*        FEAT: Reference Elements To Control Focus       */
+/* ====================================================== */
+
 const prevArrowEl = ref<HTMLButtonElement>();
 const nextArrowEl = ref<HTMLButtonElement>();
 const carouselEl = ref<HTMLElement>();
+
+/* ====================================================== */
+/*          FEAT: Carousel Reactions To Keyboard          */
+/* ====================================================== */
 
 function onKeyDown(event: KeyboardEvent) {
   if (event.key === "ArrowRight") {
@@ -115,6 +139,10 @@ function onKeyDown(event: KeyboardEvent) {
   }
 }
 
+/* ====================================================== */
+/*     FEAT: Carousel Reactions To Mouse Double Click     */
+/* ====================================================== */
+
 function onDoubleClick(event: MouseEvent) {
   if (event.target === prevArrowEl.value || event.target === nextArrowEl.value)
     return;
@@ -122,6 +150,10 @@ function onDoubleClick(event: MouseEvent) {
   const { toggleFullscreen } = useFullscreen();
   toggleFullscreen(event, carouselEl.value as HTMLElement);
 }
+
+/* ====================================================== */
+/*           FEAT: Carousel Can be Auto-focused           */
+/* ====================================================== */
 
 onMounted(() => {
   if (props.autofocus === true) {
@@ -141,6 +173,7 @@ onMounted(() => {
     role="region"
   >
     <slot :current="state.currentItem"></slot>
+
     <button
       v-if="hideArrows === false"
       @click="changeItem('prev')"
@@ -150,6 +183,7 @@ onMounted(() => {
     >
       &#65513;
     </button>
+
     <button
       v-if="hideArrows === false"
       @click="changeItem('next')"
