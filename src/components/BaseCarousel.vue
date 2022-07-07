@@ -81,7 +81,69 @@ onUnmounted(() => {
 }
 
 .arrow {
+  --arrow-font-size: calc(1.75rem + 0.5vw);
+  --arrow-background-alpha: 0.25;
+  --arrow-color-alpha: 0.5;
+  --arrow-padding-inline: calc(1rem + 1vw);
   user-select: none;
-  font-size: 2rem;
+  font-size: var(--arrow-font-size);
+  position: absolute;
+  color: rgb(255 255 255 / var(--arrow-color-alpha));
+  top: 0;
+  bottom: 0;
+  border: none;
+  padding-inline: var(--arrow-padding-inline);
+  opacity: 0;
+  transition-duration: calc(1.5 * var(--transition-duration));
+  transition-property: opacity, background, color, font-size;
+}
+
+.prev {
+  left: 0;
+  background: linear-gradient(
+    to left,
+    transparent,
+    rgb(0 0 0 / var(--arrow-background-alpha))
+  );
+}
+
+.next {
+  right: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgb(0 0 0 / var(--arrow-background-alpha))
+  );
+}
+
+.arrow:focus,
+.arrow:focus-within {
+  opacity: 1;
+  font-size: calc(1.5 * var(--arrow-font-size));
+  background-color: rgb(
+    0 0 0 / min(1, calc(1.5 * var(--arrow-background-alpha)))
+  );
+  color: rgb(255 255 255 / min(1, calc(1.5 * var(--arrow-color-alpha))));
+}
+
+.next.arrow:focus,
+.next.arrow:focus-within {
+  border-inline-end: 1px dashed rgb(255 255 255 / var(--arrow-color-alpha));
+}
+
+.prev.arrow:focus,
+.prev.arrow:focus-within {
+  border-inline-start: 1px dashed rgb(255 255 255 / var(--arrow-color-alpha));
+}
+
+.arrow:active {
+  background: rgb(
+    255 255 255 / min(1, calc(1.5 * var(--arrow-background-alpha)))
+  );
+  color: rgb(0 0 0 / min(1, calc(1.5 * var(--arrow-color-alpha))));
+}
+
+.carousel:hover .arrow {
+  opacity: 1;
 }
 </style>
