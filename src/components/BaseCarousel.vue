@@ -11,7 +11,7 @@ const state = reactive({
 
 function changeItem(direction: "next" | "prev", step = 1) {
   if (direction === "next") {
-    if (state.current >= props.totalItems) return;
+    if (state.current >= props.totalItems - 1) return;
     state.current += step;
   } else if (direction === "prev") {
     if (state.current <= 0) return;
