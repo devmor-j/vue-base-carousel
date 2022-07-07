@@ -19,7 +19,7 @@ const state = reactive({
 
 <template>
   <main>
-    <!-- <ImageCarousel :images="state.images" /> -->
+    <ImageCarousel :images="state.carouselImages" />
 
     <BaseCarousel
       v-slot="{ current }"
@@ -44,6 +44,9 @@ const state = reactive({
 main {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
   justify-content: center;
+  min-height: 70vh;
 }
 </style>

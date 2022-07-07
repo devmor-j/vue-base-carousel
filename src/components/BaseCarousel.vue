@@ -199,7 +199,7 @@ onMounted(() => {
 <style scoped>
 .carousel {
   --transition-duration: v-bind(props.transitionDuration);
-  --carousel-outline-alpha: 0.15;
+  --carousel-outline-alpha: 0.25;
   max-width: min(100%, v-bind(props.maxWidth));
   margin: auto;
   position: relative;
