@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref, onMounted, onUnmounted } from "vue";
+import useFullscreen from "@/composables/useFullscreen";
 
 type Props = {
   totalItems: number;
@@ -79,38 +80,6 @@ const prevArrowEl = ref<HTMLButtonElement>();
 const nextArrowEl = ref<HTMLButtonElement>();
 const carouselEl = ref<HTMLElement>();
 
-function toggleFullscreen(event: Event) {
-  // when fullscreen mode is not available
-  if (document?.fullscreenEnabled !== true) return;
-
-  if ("requestFullscreen" in document.documentElement) {
-    if (document.fullscreenElement === null) {
-      carouselEl.value?.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-  } else if ("webkitRequestFullscreen" in document.documentElement) {
-    // "webkitRequestFullscreen" is to support safari browser
-    // typescript warns that "webkitRequestFullscreen" not exists on "document"
-    // to suppress that warning we define two types
-
-    type RequestFullscreen = {
-      webkitRequestFullscreen: typeof document.documentElement.requestFullscreen;
-    };
-    type ExitFullscreen = {
-      webkitExitFullscreen: typeof document.exitFullscreen;
-    };
-
-    if (document.fullscreenElement === null) {
-      (
-        event.target as typeof event.target & RequestFullscreen
-      ).webkitRequestFullscreen();
-    } else {
-      (document as typeof document & ExitFullscreen).webkitExitFullscreen();
-    }
-  }
-}
-
 function onKeyDown(event: KeyboardEvent) {
   if (event.key === "ArrowRight") {
     nextArrowEl.value?.focus();
@@ -129,14 +98,17 @@ function onKeyDown(event: KeyboardEvent) {
   }
 
   if (event.key === "f" && event.ctrlKey === false) {
-    toggleFullscreen(event);
+    const { toggleFullscreen } = useFullscreen();
+    toggleFullscreen(event, carouselEl.value as HTMLElement);
   }
 }
 
 function onDoubleClick(event: MouseEvent) {
   if (event.target === prevArrowEl.value || event.target === nextArrowEl.value)
     return;
-  toggleFullscreen(event);
+
+  const { toggleFullscreen } = useFullscreen();
+  toggleFullscreen(event, carouselEl.value as HTMLElement);
 }
 
 onMounted(() => {
