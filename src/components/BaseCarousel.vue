@@ -5,6 +5,7 @@ const props = defineProps<{
   totalItems: number;
   cycle?: boolean;
   continuous?: boolean;
+  autofocus?: boolean;
 }>();
 
 // enum item object, freezed with no prototype
@@ -117,6 +118,12 @@ function onKeyDown(event: KeyboardEvent) {
     }
   }
 }
+
+onMounted(() => {
+  if (props.autofocus === true) {
+    carousel.value?.focus();
+  }
+});
 </script>
 
 <template>

@@ -9,6 +9,7 @@
 - Carousel features include:
   - Cycle through items
   - Continuously item navigation
+  - Autofocus on page load
 - Excellent touch support for navigation
 - Keyboard support: (left arrow, right arrow, escape, f)
   - Left arrow goes to previous item

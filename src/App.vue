@@ -22,6 +22,7 @@ const state = reactive({
 
     <BaseCarousel
       continuous
+      autofocus
       v-slot="{ current }"
       :total-items="state.images.length"
     >
