@@ -18,11 +18,11 @@ const state = reactive({
 
 <template>
   <main>
-    <ImageCarousel :images="state.images"> </ImageCarousel>
+    <ImageCarousel :images="state.images" />
 
     <BaseCarousel v-slot="{ current }" :total-items="state.images.length">
       <BaseCarouselItem v-for="(item, i) in state.images" :key="i">
-        <BaseImage :src="item.path" v-show="current === i"></BaseImage>
+        <BaseImage :src="item.path" v-show="current === i" />
       </BaseCarouselItem>
     </BaseCarousel>
   </main>

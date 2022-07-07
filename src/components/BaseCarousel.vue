@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, onMounted, onUnmounted } from "vue";
 
 const props = defineProps<{
   totalItems: number;
+  cycle?: boolean;
 }>();
 
 const state = reactive({
   current: 0,
+  cycleId: 0,
 });
 
 function changeItem(direction: "next" | "prev", step = 1) {
@@ -18,6 +20,18 @@ function changeItem(direction: "next" | "prev", step = 1) {
     state.current -= step;
   }
 }
+
+onMounted(() => {
+  if (props.cycle === true) {
+    state.cycleId = setInterval(() => {
+      changeItem("next");
+    }, 500);
+  }
+});
+
+onUnmounted(() => {
+  clearInterval(state.cycleId);
+});
 </script>
 
 <template>

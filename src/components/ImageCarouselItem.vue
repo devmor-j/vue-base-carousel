@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <transition name="fade" mode="out-in" appear>
-    <BaseImage :src="image.path" :draggable="false"></BaseImage>
+    <BaseImage :src="image.path" :draggable="false" />
   </transition>
 </template>
 
