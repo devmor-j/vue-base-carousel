@@ -18,7 +18,7 @@ const state = reactive({
 
 <template>
   <main>
-    <ImageCarousel :images="state.images" />
+    <ImageCarousel continuous :images="state.images" />
 
     <BaseCarousel
       continuous

@@ -7,22 +7,25 @@ const props = defineProps<{
   continuous?: boolean;
 }>();
 
-const ITEM = Object.freeze({
-  firstItem: 0,
-  lastItem: props.totalItems - 1,
-});
+// enum item object, freezed with no prototype
+const ITEM = Object.freeze(
+  Object.assign(Object.create(null), {
+    FirstItem: 0,
+    LastItem: props.totalItems - 1,
+  })
+);
 
 const state = reactive({
-  currentItem: ITEM.firstItem,
+  currentItem: ITEM.FirstItem,
   cycleId: 0,
 });
 
 function changeItem(direction: "next" | "prev", step = 1) {
   if (direction === "next") {
-    if (state.currentItem >= ITEM.lastItem) {
+    if (state.currentItem >= ITEM.LastItem) {
       // in last slide
       if (props.continuous === true) {
-        state.currentItem = ITEM.firstItem;
+        state.currentItem = ITEM.FirstItem;
       }
       return;
     }
@@ -37,7 +40,7 @@ function changeItem(direction: "next" | "prev", step = 1) {
     if (state.currentItem <= 0) {
       // in first slide
       if (props.continuous === true) {
-        state.currentItem = ITEM.lastItem;
+        state.currentItem = ITEM.LastItem;
       }
       return;
     }
