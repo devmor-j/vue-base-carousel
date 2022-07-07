@@ -8,12 +8,14 @@ type Props = {
   autofocus?: boolean;
   hideArrows?: boolean;
   transitionDuration?: string;
+  maxWidth?: string;
 };
 
 const props = withDefaults(defineProps<Props>(), {
   cycle: false,
   continuous: true,
   transitionDuration: "0.2s",
+  maxWidth: "40rem",
 });
 
 // enum item object, freezed with no prototype
@@ -176,7 +178,7 @@ onMounted(() => {
 .carousel {
   --transition-duration: v-bind(props.transitionDuration);
   --carousel-outline-alpha: 0.15;
-  max-width: min(100%, 40rem);
+  max-width: min(100%, v-bind(props.maxWidth));
   margin: auto;
   position: relative;
   overflow: hidden;
