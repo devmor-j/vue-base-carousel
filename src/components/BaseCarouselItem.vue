@@ -2,7 +2,7 @@
 
 <template>
   <div class="wrapper">
-    <transition name="fade" mode="out-in">
+    <transition name="fade" mode="out-in" appear>
       <slot></slot>
     </transition>
   </div>

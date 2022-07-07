@@ -4,20 +4,48 @@ import { reactive, onMounted, onUnmounted } from "vue";
 const props = defineProps<{
   totalItems: number;
   cycle?: boolean;
+  continuous?: boolean;
 }>();
 
+const ITEM = Object.freeze({
+  firstItem: 0,
+  lastItem: props.totalItems - 1,
+});
+
 const state = reactive({
-  current: 0,
+  currentItem: ITEM.firstItem,
   cycleId: 0,
 });
 
 function changeItem(direction: "next" | "prev", step = 1) {
   if (direction === "next") {
-    if (state.current >= props.totalItems - 1) return;
-    state.current += step;
-  } else if (direction === "prev") {
-    if (state.current <= 0) return;
-    state.current -= step;
+    if (state.currentItem >= ITEM.lastItem) {
+      // in last slide
+      if (props.continuous === true) {
+        state.currentItem = ITEM.firstItem;
+      }
+      return;
+    }
+
+    // not in last slide
+    state.currentItem += step;
+
+    return;
+  }
+
+  if (direction === "prev") {
+    if (state.currentItem <= 0) {
+      // in first slide
+      if (props.continuous === true) {
+        state.currentItem = ITEM.lastItem;
+      }
+      return;
+    }
+
+    // not in first slide
+    state.currentItem -= step;
+
+    return;
   }
 }
 
@@ -36,7 +64,7 @@ onUnmounted(() => {
 
 <template>
   <div class="carousel">
-    <slot :current="state.current"></slot>
+    <slot :current="state.currentItem"></slot>
     <button @click="changeItem('prev')" class="arrow prev">&#65513;</button>
     <button @click="changeItem('next')" class="arrow next">&#65515;</button>
   </div>
