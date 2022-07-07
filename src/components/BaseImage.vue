@@ -14,7 +14,6 @@ defineProps<{
 
 <style scoped>
 .wrapper {
-  --transition-duration: 0.2s;
   overflow: hidden;
 }
 

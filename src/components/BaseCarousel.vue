@@ -37,6 +37,7 @@ function changeItem(direction: "next" | "prev", step = 1) {
 
 <style scoped>
 .carousel {
+  --transition-duration: 0.2s;
   max-width: min(100%, 40rem);
   margin: auto;
   position: relative;
