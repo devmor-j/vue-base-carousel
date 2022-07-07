@@ -1,11 +1,11 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="wrapper">
-    <transition name="fade" mode="out-in" appear>
+  <transition name="fade" mode="out-in" appear>
+    <div class="wrapper">
       <slot></slot>
-    </transition>
-  </div>
+    </div>
+  </transition>
 </template>
 
 <style scoped>
@@ -13,6 +13,7 @@
   width: 100%;
   overflow: hidden;
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition-duration: var(--transition-duration);

@@ -6,7 +6,7 @@ import BaseCarouselItem from "./components/BaseCarouselItem.vue";
 import BaseImage from "./components/BaseImage.vue";
 
 const state = reactive({
-  images: [
+  carouselImages: [
     { path: "/images/1.jpg", alt: "aerial view island" },
     { path: "/images/2.jpg", alt: "annular eclipse sunset" },
     { path: "/images/3.jpg", alt: "top view container ship" },
@@ -20,14 +20,18 @@ const state = reactive({
   <main>
     <!-- <ImageCarousel :images="state.images" /> -->
 
-    <BaseCarousel v-slot="{ current }" :total-items="state.images.length">
+    <BaseCarousel
+      v-slot="{ current }"
+      :total-items="state.carouselImages.length"
+    >
       <BaseCarouselItem
-        v-for="(item, i) in state.images"
+        v-for="(item, i) in state.carouselImages"
         :key="i"
-        :aria-label="`slide ${i + 1} of ${state.images.length}`"
+        v-show="current === i"
         :aria-hidden="current !== i"
+        :aria-label="`slide ${i + 1} of ${state.carouselImages.length}`"
       >
-        <BaseImage :src="item.path" :alt="item.alt" v-show="current === i" />
+        <BaseImage :src="item.path" :alt="item.alt" />
       </BaseCarouselItem>
     </BaseCarousel>
   </main>

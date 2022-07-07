@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseCarousel from "./BaseCarousel.vue";
+import BaseCarousel from "@/components/BaseCarousel.vue";
 import ImageCarouselItem from "@/components/ImageCarouselItem.vue";
 
 defineProps<{
