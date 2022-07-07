@@ -4,7 +4,7 @@ import useFullscreen from "@/composables/useFullscreen";
 
 type Props = {
   totalItems: number;
-  cycle?: boolean;
+  cycle?: boolean | number;
   continuous?: boolean;
   autofocus?: boolean;
   hideArrows?: boolean;
@@ -65,10 +65,22 @@ function changeItem(direction: "next" | "prev", step = 1) {
 }
 
 onMounted(() => {
-  if (props.cycle === true) {
-    state.cycleId = setInterval(() => {
-      changeItem("next");
-    }, 500);
+  if (props.cycle !== false) {
+    const isCycleNumber = typeof props.cycle === "number";
+    if (isCycleNumber && props.cycle < 0) {
+      console.warn(
+        "on BaseCarousel Component: to set the cycle period, pass a positive number without 'ms' unit"
+      );
+    }
+
+    const cycleAsNumber = Number(Math.abs(props.cycle as number));
+
+    state.cycleId = setInterval(
+      () => {
+        changeItem("next");
+      },
+      isCycleNumber ? cycleAsNumber : 1000
+    );
   }
 });
 
