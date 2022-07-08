@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive } from "vue";
-// import ImageCarousel from "@/components/ImageCarousel.vue";
+import ImageCarousel from "@/components/ImageCarousel.vue";
 import BaseCarousel from "./components/BaseCarousel.vue";
 import BaseCarouselItem from "./components/BaseCarouselItem.vue";
 // import BaseImage from "./components/BaseImage.vue";
@@ -51,7 +51,7 @@ const state = reactive({
 
 <template>
   <main>
-    <!-- <ImageCarousel :images="state.carouselImages" /> -->
+    <ImageCarousel :images="state.carouselImages" />
 
     <BaseCarousel
       v-slot="{ current }"
@@ -60,11 +60,11 @@ const state = reactive({
     >
       <BaseCarouselItem
         v-for="(item, i) in state.carouselContent"
-        :key="i"
+        :key="`base-carousel-item-${i}`"
         v-show="current === i"
         :aria-hidden="current !== i"
         :aria-label="`slide ${i + 1} of ${state.carouselContent.length}`"
-        padding="1rem"
+        padding="1rem 4rem"
       >
         <h2>{{ item.heading }} {{ i + 1 }}</h2>
         <p>{{ item.paragraph }}</p>

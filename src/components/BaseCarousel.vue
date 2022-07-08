@@ -15,6 +15,9 @@ type Props = {
   fullscreenPadding?: boolean;
   transitionDuration?: string;
   maxWidth?: string;
+  prevButton?: string;
+  nextButton?: string;
+  dotButton?: string;
 };
 
 const props = withDefaults(defineProps<Props>(), {
@@ -22,6 +25,9 @@ const props = withDefaults(defineProps<Props>(), {
   continuous: true,
   transitionDuration: "0.2s",
   maxWidth: "40rem",
+  prevButton: "&#65513;",
+  nextButton: "&#65515;",
+  dotButton: "&#149;",
 });
 
 /* ====================================================== */
@@ -109,9 +115,10 @@ onUnmounted(() => {
 /*        FEAT: Reference Elements To Control Focus       */
 /* ====================================================== */
 
+const carouselEl = ref<HTMLElement>();
 const prevArrowEl = ref<HTMLButtonElement>();
 const nextArrowEl = ref<HTMLButtonElement>();
-const carouselEl = ref<HTMLElement>();
+const paginationEl = ref<HTMLElement>();
 
 /* ====================================================== */
 /*          FEAT: Carousel Reactions To Keyboard          */
@@ -145,7 +152,12 @@ function onKeyDown(event: KeyboardEvent) {
 /* ====================================================== */
 
 function onDoubleClick(event: MouseEvent) {
-  if (event.target === prevArrowEl.value || event.target === nextArrowEl.value)
+  // no fullscreen when double click on next and prev buttons or pagination's
+  if (
+    event.target === prevArrowEl.value ||
+    event.target === nextArrowEl.value ||
+    event.composedPath()[1] === paginationEl.value
+  )
     return;
 
   const { toggleFullscreen } = useFullscreen();
@@ -181,9 +193,8 @@ onMounted(() => {
       ref="prevArrowEl"
       class="arrow prev"
       aria-label="go to prev item"
-    >
-      &#65513;
-    </button>
+      v-html="props.prevButton"
+    ></button>
 
     <button
       v-if="hideArrows === false"
@@ -191,9 +202,16 @@ onMounted(() => {
       ref="nextArrowEl"
       class="arrow next"
       aria-label="go to next item"
-    >
-      &#65515;
-    </button>
+      v-html="props.nextButton"
+    ></button>
+
+    <div class="pagination" ref="paginationEl">
+      <button
+        v-for="(_, i) in props.totalItems"
+        :key="`pagination-dot-${i}`"
+        v-html="props.dotButton"
+      ></button>
+    </div>
   </section>
 </template>
 
@@ -338,5 +356,13 @@ onMounted(() => {
     );
     color: rgb(0 0 0 / min(1, calc(1.5 * var(--arrow-color-alpha))));
   }
+}
+
+.pagination {
+  border: 2px solid red;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-block: 1rem;
 }
 </style>
