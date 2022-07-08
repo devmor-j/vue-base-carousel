@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { reactive } from "vue";
-import ImageCarousel from "@/components/ImageCarousel.vue";
+// import ImageCarousel from "@/components/ImageCarousel.vue";
 import BaseCarousel from "./components/BaseCarousel.vue";
 import BaseCarouselItem from "./components/BaseCarouselItem.vue";
-import BaseImage from "./components/BaseImage.vue";
+// import BaseImage from "./components/BaseImage.vue";
 
 const state = reactive({
   carouselImages: [
@@ -14,33 +14,66 @@ const state = reactive({
     { path: "/images/4.jpg", alt: "Fanjing Stairs" },
     { path: "/images/5.jpg", alt: "meteor on sky" },
   ],
+  carouselContent: [
+    {
+      heading: "Heading",
+      paragraph:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, perferendis?",
+      button: "Button",
+    },
+    {
+      heading: "Heading",
+      paragraph:
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt pariatur magnam molestiae?",
+      button: "Button",
+    },
+    {
+      heading: "Heading",
+      paragraph:
+        "Dolorem placeat fugiat reprehenderit earum praesentium porro, ipsam nulla similique.",
+      button: "Button",
+    },
+    {
+      heading: "Heading",
+      paragraph:
+        "Tempora tenetur eligendi consectetur architecto quas nihil, dolorum itaque aperiam.",
+      button: "Button",
+    },
+    {
+      heading: "Heading",
+      paragraph:
+        "Cumque, impedit? Recusandae distinctio et cumque laudantium quo quasi maiores.",
+      button: "Button",
+    },
+  ],
 });
 </script>
 
 <template>
   <main>
-    <ImageCarousel :images="state.carouselImages" />
+    <!-- <ImageCarousel :images="state.carouselImages" /> -->
 
     <BaseCarousel
       v-slot="{ current }"
-      :total-items="state.carouselImages.length"
+      :total-items="state.carouselContent.length"
     >
       <BaseCarouselItem
-        v-for="(item, i) in state.carouselImages"
+        v-for="(item, i) in state.carouselContent"
         :key="i"
         v-show="current === i"
         :aria-hidden="current !== i"
-        :aria-label="`slide ${i + 1} of ${state.carouselImages.length}`"
+        :aria-label="`slide ${i + 1} of ${state.carouselContent.length}`"
+        padding="1rem"
       >
-        <BaseImage :src="item.path" :alt="item.alt" />
+        <h2>{{ item.heading }} {{ i + 1 }}</h2>
+        <p>{{ item.paragraph }}</p>
+        <button>{{ item.button }} {{ i + 1 }}</button>
       </BaseCarouselItem>
     </BaseCarousel>
   </main>
 </template>
 
 <style scoped>
-@import "./assets/base.css";
-
 main {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// [ ] add padding prop for ImageCarouselItem
+type Props = {
+  padding?: string;
+};
+
+const props = withDefaults(defineProps<Props>(), {
+  padding: "1rem",
+});
+</script>
 
 <template>
   <transition name="fade" mode="out-in" appear>
@@ -10,8 +19,11 @@
 
 <style scoped>
 .wrapper {
+  --item-padding: v-bind(props.padding);
   width: 100%;
   overflow: hidden;
+  box-sizing: border-box;
+  padding: var(--item-padding);
 }
 
 .fade-enter-active,
