@@ -5,7 +5,7 @@ type Props = {
 };
 
 const props = withDefaults(defineProps<Props>(), {
-  padding: "1rem",
+  padding: "0rem",
 });
 </script>
 
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 <style scoped>
 .wrapper {
-  --item-padding: v-bind(props.padding);
+  --item-padding: v-bind(props.padding ?? "unset");
   width: 100%;
   overflow: hidden;
   box-sizing: border-box;

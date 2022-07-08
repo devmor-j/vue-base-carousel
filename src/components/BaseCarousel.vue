@@ -12,6 +12,7 @@ type Props = {
   continuous?: boolean;
   autofocus?: boolean;
   hideArrows?: boolean;
+  fullscreenPadding?: boolean;
   transitionDuration?: string;
   maxWidth?: string;
 };
@@ -201,14 +202,25 @@ onMounted(() => {
   --transition-duration: v-bind(props.transitionDuration);
   --carousel-max-width: v-bind(props.maxWidth);
   --carousel-outline-alpha: 0.25;
+  --arrow-font-size: calc(1.75rem + 0.5vw);
+  --arrow-padding-inline: calc(1rem + 1vw);
   max-width: min(100%, var(--carousel-max-width));
-  margin: auto;
+  margin-inline: auto;
   position: relative;
   overflow: hidden;
   user-select: none;
   box-shadow: 0 0 18px rgb(0 0 0 / 0.25);
   transition-duration: var(--transition-duration);
   transition-property: transform;
+}
+
+.carousel:fullscreen {
+  /* padding-inline: calc(1rem + 1.05 * (2px + var(--arrow-font-size) + var(--arrow-padding-inline))); */
+  padding-inline: v-bind(
+    props.fullscreenPadding === true ?
+      "calc(1rem + 1.05 * (2px + var(--arrow-font-size) + var(--arrow-padding-inline)))":
+      "unset"
+  );
 }
 
 .carousel:focus-within {
@@ -231,10 +243,8 @@ onMounted(() => {
 }
 
 .arrow {
-  --arrow-font-size: calc(1.75rem + 0.5vw);
   --arrow-background-alpha: 0.2;
   --arrow-color-alpha: 0.5;
-  --arrow-padding-inline: calc(1rem + 1vw);
   user-select: none;
   font-size: var(--arrow-font-size);
   position: absolute;
@@ -291,7 +301,7 @@ onMounted(() => {
   color: rgb(255 255 255 / min(1, calc(1.5 * var(--arrow-color-alpha))));
 }
 
-.carousel:hover .arrow {
+.carousel:hover:not(:fullscreen) .arrow {
   opacity: 1;
 }
 

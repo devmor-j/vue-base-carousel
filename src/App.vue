@@ -56,6 +56,7 @@ const state = reactive({
     <BaseCarousel
       v-slot="{ current }"
       :total-items="state.carouselContent.length"
+      :fullscreen-padding="true"
     >
       <BaseCarouselItem
         v-for="(item, i) in state.carouselContent"
