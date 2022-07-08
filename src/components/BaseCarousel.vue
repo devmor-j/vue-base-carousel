@@ -18,7 +18,8 @@ type Props = {
   prevButton?: string;
   nextButton?: string;
   dotButton?: string;
-  noDotInterfer: boolean;
+  hideDots?: boolean;
+  overlayDots?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
@@ -29,7 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
   prevButton: "&#65513;",
   nextButton: "&#65515;",
   dotButton: "&#149;",
-  noDotInterfer: true,
+  overlayDots: false,
 });
 
 /* ====================================================== */
@@ -222,7 +223,7 @@ function onDotClick(index: number): void {
       v-html="props.nextButton"
     ></button>
 
-    <div class="pagination" ref="paginationEl">
+    <div class="pagination" ref="paginationEl" v-if="hideDots === false">
       <button
         v-for="(_, i) in props.totalItems"
         :key="`pagination-dot-${i}`"
@@ -249,7 +250,7 @@ function onDotClick(index: number): void {
   transition-duration: var(--transition-duration);
   transition-property: transform;
   padding-block-end: v-bind(
-    props.noDotInterfer===true ? "calc(2rem + 2ex + 2vh + 2px)": "unset"
+    props.overlayDots===false ? "calc(2rem + 2ex + 2vh + 2px)": "unset"
   );
 }
 
