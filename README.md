@@ -1,6 +1,6 @@
 # Vue Carousel
 
-Carousel component writtin in [Vue 3](https://vuejs.org/) and [TypeScript](https://www.typescriptlang.org/)
+Advanced Carousel component writtin in [Vue 3](https://vuejs.org/) and [TypeScript](https://www.typescriptlang.org/)
 
 Two Carousel components:
 
@@ -32,6 +32,136 @@ Both Carousels have these features:
   - Pressing *f* key (no interfere with *ctrl + f* which is binded to find action)
   - *Double clicking* on carousel (except it's arrow buttons)
 - Enough accessibility support
+
+## Usage
+
+### ImageCarousel
+
+```html
+<script setup lang="ts">
+import { reactive } from "vue";
+import ImageCarousel from "@/components/ImageCarousel.vue";
+
+// your images should be an array of objects like below (alt is optional)
+const state = reactive({
+  carouselImages: [
+    { path: "/images/1.jpg", alt: "aerial view island" },
+    { path: "/images/2.jpg", alt: "annular eclipse sunset" },
+    // and so forth...
+  ],
+});
+</script>
+
+<template>
+  <main>
+    <!-- use image carousel in your html -->
+    <!-- don't need "section" tag, it's already wrapped inside one -->
+    <image-carousel :images="state.carouselImages" />
+  </main>
+</template>
+```
+
+### BaseCarousel
+
+*BaseCarousel* is desigend using slots for general usage. Simply put your html elements inside *BaseCarousel* and it's *BaseCarouselItem* like so:
+
+```html
+<script setup lang="ts">
+import { reactive } from "vue";
+import BaseCarousel from "./components/BaseCarousel.vue";
+import BaseCarouselItem from "./components/BaseCarouselItem.vue";
+
+const state = reactive({
+  carouselContent: [
+    {
+      heading: "Heading",
+      paragraph:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, perferendis?",
+      button: "Button",
+    },
+    {
+      heading: "Heading",
+      paragraph:
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt pariatur magnam molestiae?",
+      button: "Button",
+    },
+    // and so forth...
+  ],
+});
+</script>
+
+<template>
+  <main>
+    <!-- total-items prop is required, everything else is optional -->
+    <!-- you have to extract "current" index from base carousel -->
+    <base-carousel
+      v-slot="{ current }"
+      :total-items="state.carouselContent.length"
+    >
+    <!-- v-show is required and works with "current" and some index to compare (in this case "i" from v-for) -->
+    <!-- you can remove accessibility (aria) labels if you don't need them -->
+      <base-carousel-item
+        v-for="(item, i) in state.carouselContent"
+        :key="`base-carousel-item-${i}`"
+        v-show="current === i"
+        :aria-hidden="current !== i"
+        :aria-label="`slide ${i + 1} of ${state.carouselContent.length}`"
+      >
+      <!-- everything inside here will work fine, this is just an example -->
+        <h2>{{ item.heading }} {{ i + 1 }}</h2>
+        <p>{{ item.paragraph }}</p>
+        <button>{{ item.button }} {{ i + 1 }}</button>
+      </base-carousel-item>
+    </base-carousel>
+  </main>
+</template>
+```
+
+### All Props
+
+These are for *BaseCarousel* and should work fine for *ImageCarousel* as well:
+
+```ts
+// totalItems is required everything else is optional
+type Props = {
+  totalItems: number;
+  cycle?: boolean | number;
+  continuous?: boolean;
+  autofocus?: boolean;
+  hideArrows?: boolean;
+  fullscreenPadding?: boolean;
+  transitionDuration?: string;
+  maxWidth?: string;
+  prevButton?: string;
+  nextButton?: string;
+  dotButton?: string;
+  hideDots?: boolean;
+  overlayDots?: boolean;
+};
+```
+
+### Props Defaults
+
+```ts
+const props = withDefaults(defineProps<Props>(), {
+  cycle: false,
+  continuous: true,
+  transitionDuration: "0.2s",
+  maxWidth: "40rem",
+  prevButton: "&#65513;",
+  nextButton: "&#65515;",
+  dotButton: "&#149;",
+  overlayDots: false,
+});
+```
+
+Please not that if a prop is passed to component without value like this:
+
+```html
+`<base-carousel autofocus />`
+```
+
+It means `:autofocus="true"`.
 
 ## Notes
 
