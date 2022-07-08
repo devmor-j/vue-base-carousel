@@ -216,6 +216,20 @@ onMounted(() => {
   transform: scale(1.025);
 }
 
+@media (prefers-color-scheme: dark) {
+  .carousel:fullscreen {
+    color: white;
+    background-color: black;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .carousel:fullscreen {
+    color: black;
+    background-color: white;
+  }
+}
+
 .arrow {
   --arrow-font-size: calc(1.75rem + 0.5vw);
   --arrow-background-alpha: 0.25;
