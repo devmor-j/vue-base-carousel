@@ -29,7 +29,7 @@ Both Carousels have these features:
   - *Escape* cancel focus (on carousel element)
   - *f* key view carousel in fullscreen mode
 - Fullscreen mode (with Safari support) by:
-  - Pressing *f* key (no interfer with *ctrl + f* which is binded to find action)
+  - Pressing *f* key (no interfere with *ctrl + f* which is binded to find action)
   - *Double clicking* on carousel (except it's arrow buttons)
 - Enough accessibility support
 
