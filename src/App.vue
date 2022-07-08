@@ -81,6 +81,7 @@ main {
   gap: 1rem;
   margin-top: 1rem;
   justify-content: center;
-  min-height: 70vh;
+  min-height: 75vh;
+  padding-inline: 0.5rem;
 }
 </style>
