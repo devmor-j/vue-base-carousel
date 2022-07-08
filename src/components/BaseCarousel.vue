@@ -177,6 +177,10 @@ onMounted(() => {
   }
 });
 
+/* ====================================================== */
+/*    FEAT: Pagination Dots to Navigate Specific Items    */
+/* ====================================================== */
+
 function onDotClick(index: number): void {
   // if already there, do nothing
   if (index === state.currentItem) return;
