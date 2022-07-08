@@ -287,6 +287,10 @@ function onDotClick(index: number): void {
   }
 }
 
+/* ====================================================== */
+/*                   PREV/NEXT (ARROWS)                   */
+/* ====================================================== */
+
 .arrow {
   --arrow-background-alpha: 0.2;
   --arrow-color-alpha: 0.5;
@@ -388,6 +392,10 @@ function onDotClick(index: number): void {
     color: rgb(0 0 0 / min(1, calc(1.5 * var(--arrow-color-alpha))));
   }
 }
+
+/* ====================================================== */
+/*                   PAGINATION AND DOTS                  */
+/* ====================================================== */
 
 .pagination {
   --dot-font-size: calc(1.75rem + 0.5vw);
