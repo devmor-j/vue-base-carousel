@@ -155,13 +155,29 @@ const props = withDefaults(defineProps<Props>(), {
 });
 ```
 
-Please not that if a prop is passed to component without value like this:
+Please note that if a prop is passed to component without value like this:
 
 ```html
 `<base-carousel autofocus />`
 ```
 
 It means `:autofocus="true"`.
+
+Also for auto cycle you can either pass 'cycle' prop to BaseCarousel (or ImageCarousel) to enable default behaviour like this:
+
+```html
+<!-- this will enable slideshow with default 1000ms period -->
+`<base-carousel cycle />`
+```
+
+or set the time (in ms) like example below:
+
+```html
+<!-- this will enable slideshow with 2500ms period -->
+`<base-carousel :cycle="2500" />`
+```
+
+> Note that `cycle` is disbaled by default (because some people find it annoying)
 
 ## Notes
 
