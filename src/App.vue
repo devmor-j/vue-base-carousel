@@ -57,6 +57,7 @@ const state = reactive({
       v-slot="{ current }"
       :total-items="state.carouselContent.length"
       :fullscreen-padding="true"
+      autofocus
     >
       <BaseCarouselItem
         v-for="(item, i) in state.carouselContent"
@@ -64,7 +65,7 @@ const state = reactive({
         v-show="current === i"
         :aria-hidden="current !== i"
         :aria-label="`slide ${i + 1} of ${state.carouselContent.length}`"
-        padding="1rem 4rem"
+        padding="1rem"
       >
         <h2>{{ item.heading }} {{ i + 1 }}</h2>
         <p>{{ item.paragraph }}</p>

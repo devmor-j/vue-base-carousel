@@ -15,7 +15,9 @@ Both Carousels have these features:
 - Cycle through items
 - Change cycle period (ex: '1000' in *ms*)
 - Autofocus on page load
-- Hide navigation arrows
+- Go to specific item using dots (pagination)
+- Write custom html for prev/next buttons (default is arrow shape)
+- Hide prev/next navigation buttons (arrows)
 - Beautiful transitions
 - Change transition time (ex: '0.3s')
 - Adjust padding on each carousel item and whole carousel when in fullscreen mode (to prevent interference with carousel arrows)
@@ -65,7 +67,7 @@ This makes adding and debugging very easy, because all features code are possibl
 Next features will be:
 
 - [ ] Navigation via *touch swipes*
-- [ ] Navigation with pagination (dots)
+- [x] Navigation with pagination (dots)
 - [ ] Show multiple items on each page
 - [ ] Add pause button helper when carousel cycles
 - [ ] Add fullscreen button helper for better accessibility

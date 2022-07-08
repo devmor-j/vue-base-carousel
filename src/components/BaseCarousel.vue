@@ -18,6 +18,7 @@ type Props = {
   prevButton?: string;
   nextButton?: string;
   dotButton?: string;
+  noDotInterfer: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
@@ -28,6 +29,7 @@ const props = withDefaults(defineProps<Props>(), {
   prevButton: "&#65513;",
   nextButton: "&#65515;",
   dotButton: "&#149;",
+  noDotInterfer: true,
 });
 
 /* ====================================================== */
@@ -246,12 +248,15 @@ function onDotClick(index: number): void {
   box-shadow: 0 0 18px rgb(0 0 0 / 0.25);
   transition-duration: var(--transition-duration);
   transition-property: transform;
+  padding-block-end: v-bind(
+    props.noDotInterfer===true ? "calc(2rem + 2ex + 2vh + 2px)": "unset"
+  );
 }
 
 .carousel:fullscreen {
   /* padding-inline: calc(1rem + 1.05 * (2px + var(--arrow-font-size) + var(--arrow-padding-inline))); */
   padding-inline: v-bind(
-    props.fullscreenPadding === true ?
+    props.fullscreenPadding===true ?
       "calc(1rem + 1.05 * (2px + var(--arrow-font-size) + var(--arrow-padding-inline)))":
       "unset"
   );
@@ -339,6 +344,10 @@ function onDotClick(index: number): void {
   opacity: 1;
 }
 
+.carousel:fullscreen .arrow:hover {
+  opacity: 1;
+}
+
 @media (prefers-color-scheme: dark) {
   .prev {
     background: linear-gradient(
@@ -375,10 +384,56 @@ function onDotClick(index: number): void {
 }
 
 .pagination {
-  border: 2px solid red;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding-block: 1rem;
+  --dot-font-size: calc(1.75rem + 0.5vw);
+  --dot-color-alpha: 0.5;
+  color: rgb(255 255 255 / var(--dot-color-alpha));
+  /* border: 2px solid red; */
+  max-width: fit-content;
+  margin-inline: auto;
+  padding-block: 0.5rem;
+  padding-inline: 0.5rem;
+  border-radius: 100vmax;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.pagination > button {
+  font-size: var(--dot-font-size);
+  cursor: pointer;
+  border: none;
+  border-radius: 100vmax;
+  line-height: 1;
+  min-width: calc(1ex + 1.25rem);
+  margin: calc(0.25rem + 0.25vw);
+  padding: 0.125rem;
+  background: radial-gradient(black, transparent 25%);
+  color: inherit;
+  transition-duration: var(--transition-duration);
+  transition-property: transform, background, opacity;
+  opacity: 0;
+  user-select: none;
+}
+
+.carousel:hover:not(:fullscreen) .pagination > button {
+  opacity: 1;
+}
+
+.carousel:fullscreen .pagination {
+  padding-block: 2rem;
+}
+
+.pagination:focus-within > button {
+  opacity: 1;
+}
+
+.pagination:hover > button {
+  opacity: 1;
+}
+
+.pagination > button:active {
+  background: radial-gradient(white, transparent 25%);
+  transform: scale(2);
 }
 </style>
