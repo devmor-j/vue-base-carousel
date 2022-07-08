@@ -232,7 +232,7 @@ onMounted(() => {
 
 .arrow {
   --arrow-font-size: calc(1.75rem + 0.5vw);
-  --arrow-background-alpha: 0.25;
+  --arrow-background-alpha: 0.2;
   --arrow-color-alpha: 0.5;
   --arrow-padding-inline: calc(1rem + 1vw);
   user-select: none;
@@ -271,9 +271,9 @@ onMounted(() => {
   opacity: 1;
   font-size: calc(1.5 * var(--arrow-font-size));
   background-color: rgb(
-    0 0 0 / min(1, calc(1.5 * var(--arrow-background-alpha)))
+    255 255 255 / min(1, calc(1.5 * var(--arrow-background-alpha)))
   );
-  color: rgb(255 255 255 / min(1, calc(1.5 * var(--arrow-color-alpha))));
+  color: rgb(0 0 0 / min(1, calc(1.5 * var(--arrow-color-alpha))));
 }
 
 .next.arrow:focus,
@@ -287,13 +287,46 @@ onMounted(() => {
 }
 
 .arrow:active {
-  background: rgb(
-    255 255 255 / min(1, calc(1.5 * var(--arrow-background-alpha)))
-  );
-  color: rgb(0 0 0 / min(1, calc(1.5 * var(--arrow-color-alpha))));
+  background: rgb(0 0 0 / min(1, calc(1.5 * var(--arrow-background-alpha))));
+  color: rgb(255 255 255 / min(1, calc(1.5 * var(--arrow-color-alpha))));
 }
 
 .carousel:hover .arrow {
   opacity: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .prev {
+    background: linear-gradient(
+      to left,
+      transparent,
+      rgb(255 255 255 / var(--arrow-background-alpha))
+    );
+  }
+
+  .next {
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgb(255 255 255 / var(--arrow-background-alpha))
+    );
+  }
+
+  .arrow:focus,
+  .arrow:focus-within {
+    opacity: 1;
+    font-size: calc(1.5 * var(--arrow-font-size));
+    background-color: rgb(
+      0 0 0 / min(1, calc(1.5 * var(--arrow-background-alpha)))
+    );
+    color: rgb(255 255 255 / min(1, calc(1.5 * var(--arrow-color-alpha))));
+  }
+
+  .arrow:active {
+    background: rgb(
+      255 255 255 / min(1, calc(1.5 * var(--arrow-background-alpha)))
+    );
+    color: rgb(0 0 0 / min(1, calc(1.5 * var(--arrow-color-alpha))));
+  }
 }
 </style>
