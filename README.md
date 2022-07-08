@@ -18,6 +18,7 @@ Both Carousels have these features:
 - Hide navigation arrows
 - Beautiful transitions
 - Change transition time (ex: '0.3s')
+- Adjust padding on each carousel item and whole carousel when in fullscreen mode (to prevent interference with carousel arrows)
 - Excellent *touch* and *focus* support for navigation:
   - Cannot swipe items for now
 - Keyboard support:
@@ -36,6 +37,7 @@ Both Carousels have these features:
 
 - Responsive design, from *320px* screen (smart watch, phone, tablet) up-to *4K* screens (laptop, desktop, TV)
 - **Images are not absolute-positioned**, so CSS *content flow* is not broken (this means that if you nest the carousel inside another element there should be no CSS break happening)
+- Supports dark/light color-schemes and carousel colors react to user's system theme
 - Has almost no CSS resets, so it should work fine inside any project
 
 ### Logic sorting method
