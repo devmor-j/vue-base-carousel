@@ -232,6 +232,7 @@ function onDotClick(index: number): void {
         v-for="(_, i) in props.totalItems"
         :key="`pagination-dot-${i}`"
         @click="onDotClick(i)"
+        :aria-label="`go to item ${i + 1}`"
         v-html="props.dotButton"
       ></button>
     </div>
