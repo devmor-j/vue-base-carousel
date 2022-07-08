@@ -390,9 +390,8 @@ function onDotClick(index: number): void {
 
 .pagination {
   --dot-font-size: calc(1.75rem + 0.5vw);
-  --dot-color-alpha: 0.5;
-  color: rgb(255 255 255 / var(--dot-color-alpha));
-  /* border: 2px solid red; */
+  --dot-color-alpha: 0.4;
+  color: rgb(0 0 0 / var(--dot-color-alpha));
   max-width: fit-content;
   margin-inline: auto;
   padding-block: 0.5rem;
@@ -404,6 +403,12 @@ function onDotClick(index: number): void {
   left: 0;
 }
 
+@media (prefers-color-scheme: dark) {
+  .pagination {
+    color: rgb(255 255 255 / var(--dot-color-alpha));
+  }
+}
+
 .pagination > button {
   font-size: var(--dot-font-size);
   cursor: pointer;
@@ -413,12 +418,27 @@ function onDotClick(index: number): void {
   min-width: calc(1ex + 1.25rem);
   margin: calc(0.25rem + 0.25vw);
   padding: 0.125rem;
-  background: radial-gradient(black, transparent 25%);
+  background: radial-gradient(
+    rgb(0 0 0 / calc(1.5 * var(--dot-color-alpha))),
+    transparent 25%
+  );
   color: inherit;
   transition-duration: var(--transition-duration);
   transition-property: transform, background, opacity;
   opacity: 0;
   user-select: none;
+}
+
+.pagination > button:hover {
+  transform: scale(1.5);
+}
+
+.pagination > button:active {
+  background: radial-gradient(
+    rgb(255 255 255 / calc(1.5 * var(--dot-color-alpha))),
+    transparent 25%
+  );
+  transform: scale(2);
 }
 
 .carousel:hover:not(:fullscreen) .pagination > button {
@@ -435,10 +455,5 @@ function onDotClick(index: number): void {
 
 .pagination:hover > button {
   opacity: 1;
-}
-
-.pagination > button:active {
-  background: radial-gradient(white, transparent 25%);
-  transform: scale(2);
 }
 </style>
