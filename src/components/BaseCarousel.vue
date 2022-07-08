@@ -173,6 +173,21 @@ onMounted(() => {
     carouselEl.value?.focus();
   }
 });
+
+function onDotClick(index: number): void {
+  // if already there, do nothing
+  if (index === state.currentItem) return;
+
+  // find direction and calculate step size
+  if (index > state.currentItem) {
+    changeItem("next", index - state.currentItem);
+    return;
+  }
+  if (index < state.currentItem) {
+    changeItem("prev", state.currentItem - index);
+    return;
+  }
+}
 </script>
 
 <template>
@@ -209,6 +224,7 @@ onMounted(() => {
       <button
         v-for="(_, i) in props.totalItems"
         :key="`pagination-dot-${i}`"
+        @click="onDotClick(i)"
         v-html="props.dotButton"
       ></button>
     </div>
