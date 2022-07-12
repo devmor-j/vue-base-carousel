@@ -30,7 +30,7 @@ Both Carousels have these features:
   - *f* key view carousel in fullscreen mode
 - Fullscreen mode (with Safari support) by:
   - Pressing *f* key (no interfere with *ctrl + f* which is binded to find action)
-  - *Double clicking* on carousel (except it's arrow buttons)
+  - *Double clicking* on carousel (except it's arrow buttons, and pagination dots)
 - Enough accessibility support
 
 ## Usage
@@ -200,11 +200,11 @@ This makes features coupled together because you have to know what relates to wh
 
 - **b)** Sort base on features:
 
-For example I already have used *onMounted* for one feature, but my new feature also needs to run an action when component mounts (needs to run inside, *onMounted*); in this case we don't touch previous codes and simply write everything needed for this feature to work at the end of last feature code.
+For example I already have used *onMounted* for one feature, but my new feature also needs to run an action when component mounts (needs to run inside, *onMounted*); in this case we don't touch previous codes and simply write everything needed for this feature to work at the end of the last feature code.
 
 This makes adding and debugging very easy, because all features code are possibly in the same place.
 
-> This project's logic is sorted based on feature concerns not specifically Vue's consern
+> This project's logic is sorted based on feature concerns not specifically Vue's concern
 >
 > This means that you can easily find and remove features you don't want or add new features with no hassle to touch current code
 
