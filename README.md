@@ -156,7 +156,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 ```
 
-Please note that if a prop is passed to component without value like this:
+Please note that if a **prop is passed to component without value** like this:
 
 ```html
 `<base-carousel autofocus />`
@@ -164,7 +164,7 @@ Please note that if a prop is passed to component without value like this:
 
 It means `:autofocus="true"`.
 
-Also for auto cycle you can either pass 'cycle' prop to BaseCarousel (or ImageCarousel) to enable default behaviour like this:
+Also for **auto cycle** you can either pass 'cycle' prop to BaseCarousel (or ImageCarousel) to enable default behaviour like this:
 
 ```html
 <!-- this will enable slideshow with default 1000ms period -->
@@ -184,7 +184,7 @@ or set the time (in ms) like example below:
 
 Touch swiping on Carousel items, is another way to navigate them. This project has implemented this feature using Vue's directives (here named [`v-swipe`](src/composables/vSwipe.ts)).
 
-Simply add `v-swipe` directive to your element and determin direction with modifiers like *left*, *right*, *up* and *down* and pass an handler (function) and do the logic needed in you app (here we change carousel items based on swipe direction available on *event.detail*).
+Simply add `v-swipe` directive to your element and determine direction with modifiers like *left*, *right*, *up* and *down* and pass an handler (function) and do the logic needed in you app (here we change carousel items based on swipe direction available on *event.detail*).
 
 **`v-swipe` Example**
 
