@@ -180,6 +180,63 @@ or set the time (in ms) like example below:
 
 > Note that `cycle` is disbaled by default (because some people find it annoying)
 
+### `v-swipe` Directive
+
+Touch swiping on Carousel items, is another way to navigate them. This project has implemented this feature using Vue's directives (here named [`v-swipe`](src/composables/vSwipe.ts)).
+
+Simply add `v-swipe` directive to your element and determin direction with modifiers like *left*, *right*, *up* and *down* and pass an handler (function) and do the logic needed in you app (here we change carousel items based on swipe direction available on *event.detail*).
+
+**`v-swipe` Example**
+
+First import *v-swipe* initializer:
+
+```ts
+import { initSwipeDirective } from "@/composables/vSwipe";
+```
+
+If using TypeScript you can import types too:
+
+```ts
+import type { SwipeEventDetail } from "@/composables/vSwipe";
+```
+
+In your TypeScript define a function to run when swipe triggers:
+
+```ts
+// if not satisfied with defaulst then
+// pass your own options as an object to initSwipeDirective
+const vSwipe = initSwipeDirective();
+
+// in JavaScript just write: function handleSwipe(event) {...}
+function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
+  // log swipe details here:
+  // console.log(event.detail.direction)
+  // console.log(event.detail.distance)
+  // console.log(event.detail.duration)
+  if (event.detail.direction === "left") changeItem("next");
+  if (event.detail.direction === "right") changeItem("prev");
+}
+```
+
+**Default swipe options** are *50(ms)* for minimal swipe duration and *10(px)* minimal swipe distance (direction is found automatically to calculate distance).
+
+please note that options don't have a unit just pass the number.
+
+Use `v-swipe` like any other Vue directives on your HTML element:
+
+```html
+
+<!-- you have to use modifiers to limit swipe direction like so: -->
+
+<section v-swipe.left.right="handleSwipe">
+
+  <!-- now this element is swipe-active and listens to touch events -->
+
+  <!-- note: for all directions: v-swipe.left.right.top.down="..." -->
+
+</section>
+```
+
 ## Notes
 
 ### CSS Notes
