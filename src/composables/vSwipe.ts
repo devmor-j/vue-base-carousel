@@ -1,8 +1,7 @@
 // [ ] use watch for xDiff and timeDiff
-// [ ] use swipeState with reactive instead of ref
 // [ ] create a useSwipe version
 
-import { ref } from "vue";
+import { reactive } from "vue";
 import type { Directive } from "vue";
 
 export type SwipeDirection = "left" | "right" | "up" | "down" | "none";
@@ -14,19 +13,18 @@ export type SwipeEventDetail = {
 
 export const vSwipe: Directive = {
   mounted(swipeElement, binding) {
-    const startX = ref(0);
-    const startY = ref(0);
-    const startTime = ref(0);
-
-    const endX = ref(0);
-    const endY = ref(0);
-    const endTime = ref(0);
-
-    const xDiff = ref(0);
-    const yDiff = ref(0);
-    const timeDiff = ref(0);
-
-    const swipeDirection = ref<SwipeDirection>("none");
+    const swipeState = reactive({
+      startX: 0,
+      startY: 0,
+      startTime: 0,
+      endX: 0,
+      endY: 0,
+      endTime: 0,
+      xDiff: 0,
+      yDiff: 0,
+      timeDiff: 0,
+      swipeDirection: "none",
+    });
 
     // const swipeEvent = new CustomEvent('swipe', {
     //   detail: {
@@ -38,9 +36,9 @@ export const vSwipe: Directive = {
     swipeElement.addEventListener(
       "touchstart",
       (event: TouchEvent) => {
-        startTime.value = new Date().getTime();
-        startX.value = event.touches.item(0)?.clientX as number;
-        startY.value = event.touches.item(0)?.clientY as number;
+        swipeState.startTime = new Date().getTime();
+        swipeState.startX = event.touches.item(0)?.clientX as number;
+        swipeState.startY = event.touches.item(0)?.clientY as number;
       },
       { passive: true }
     );
@@ -48,14 +46,14 @@ export const vSwipe: Directive = {
     swipeElement.addEventListener(
       "touchend",
       (event: TouchEvent) => {
-        endTime.value = new Date().getTime();
-        timeDiff.value = endTime.value - startTime.value;
+        swipeState.endTime = new Date().getTime();
+        swipeState.timeDiff = swipeState.endTime - swipeState.startTime;
 
-        endX.value = event.changedTouches.item(0)?.clientX as number;
-        endY.value = event.changedTouches.item(0)?.clientY as number;
+        swipeState.endX = event.changedTouches.item(0)?.clientX as number;
+        swipeState.endY = event.changedTouches.item(0)?.clientY as number;
 
-        xDiff.value = endX.value - startX.value;
-        yDiff.value = endY.value - startY.value;
+        swipeState.xDiff = swipeState.endX - swipeState.startX;
+        swipeState.yDiff = swipeState.endY - swipeState.startY;
 
         const getDirection = (xDiff: number, yDiff: number): SwipeDirection => {
           if (Math.abs(xDiff) > Math.abs(yDiff)) {
@@ -74,19 +72,22 @@ export const vSwipe: Directive = {
           }
         };
 
-        swipeDirection.value = getDirection(xDiff.value, yDiff.value);
+        swipeState.swipeDirection = getDirection(
+          swipeState.xDiff,
+          swipeState.yDiff
+        );
 
         type CustomEventDetail = {
           direction: SwipeDirection;
           duration: number; // in ms
         };
 
-        if (timeDiff.value > 50 && swipeDirection.value !== "none") {
+        if (swipeState.timeDiff > 50 && swipeState.swipeDirection !== "none") {
           binding.value(
             new CustomEvent("swipe", {
               detail: {
-                direction: swipeDirection.value,
-                duration: timeDiff.value,
+                direction: swipeState.swipeDirection,
+                duration: swipeState.timeDiff,
               } as CustomEventDetail,
             })
           );
