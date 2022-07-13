@@ -164,7 +164,7 @@ Please note that if a **prop is passed to component without value** like this:
 
 It means `:autofocus="true"`.
 
-Also for **auto cycle** you can either pass 'cycle' prop to BaseCarousel (or ImageCarousel) to enable default behaviour like this:
+Also to **auto cycle** you can either pass 'cycle' prop to BaseCarousel (or ImageCarousel) to enable default behaviour like this:
 
 ```html
 <!-- this will enable slideshow with default 1000ms period -->
@@ -203,7 +203,7 @@ import type { SwipeEventDetail } from "@/composables/vSwipe";
 In your TypeScript define a function to run when swipe triggers:
 
 ```ts
-// if not satisfied with defaulst then
+// if not satisfied with defaults then
 // pass your own options as an object to initSwipeDirective
 const vSwipe = initSwipeDirective();
 
