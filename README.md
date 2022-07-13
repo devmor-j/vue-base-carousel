@@ -22,7 +22,8 @@ Both Carousels have these features:
 - Change transition time (ex: '0.3s')
 - Adjust padding on each carousel item and whole carousel when in fullscreen mode (to prevent interference with carousel arrows)
 - Excellent *touch* and *focus* support for navigation:
-  - Cannot swipe items for now
+  - Change items based on touch swipe direction (left and right swipe), implemented using custom Vue directive ([*v-swipe*](src/composables/vSwipe.ts))
+  - Touch swipes can be adjusted to your needs with options like swipe duration and distance
 - Keyboard support:
   - *Left arrow* goes to previous item
   - *Right arrow* goes to next item
@@ -212,7 +213,7 @@ This makes adding and debugging very easy, because all features code are possibl
 
 Next features will be:
 
-- [ ] Navigation via *touch swipes*
+- [x] Navigation via *touch swipes*
 - [x] Navigation with pagination (dots)
 - [ ] Show multiple items on each page
 - [ ] Add pause button helper when carousel cycles

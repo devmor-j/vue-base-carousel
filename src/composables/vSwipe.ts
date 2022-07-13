@@ -1,8 +1,6 @@
 import { reactive } from "vue";
 import type { Directive, DirectiveBinding } from "vue";
 
-// [ ] create a useSwipe versionX
-
 export type SwipeDirection = "left" | "right" | "up" | "down" | "none";
 
 export type SwipeEventDetail = {
