@@ -7,6 +7,7 @@ import useFullscreen from "@/composables/useFullscreen";
 /* ====================================================== */
 
 type Props = {
+  // [ ] if possible use defineExpose to count total carousel items and omit totalItems prop
   totalItems: number;
   cycle?: boolean | number;
   continuous?: boolean;
