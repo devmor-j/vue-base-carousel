@@ -203,10 +203,17 @@ function onDotClick(index: number): void {
 /*                  FEAT: Swipe Detection                 */
 /* ====================================================== */
 
+// you can pass an options object to change swipe behaviour
+// swipe duration threshold: minimal time (ms) for each swipe to take effect
+// swipe distance threshold: minimal distance (px) for each swipe to take effect
+// option defaults: { durationThreshold: 50, distanceThreshold: 10 }
 const vSwipe = initSwipeDirective();
 
 function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
-  console.log(event.detail.direction);
+  // log swipe details here:
+  // console.log(event.detail.direction)
+  // console.log(event.detail.distance)
+  // console.log(event.detail.duration)
   if (event.detail.direction === "left") changeItem("next");
   if (event.detail.direction === "right") changeItem("prev");
 }
@@ -221,7 +228,7 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
     tabindex="-1"
     aria-label="carousel"
     role="region"
-    v-swipe="handleSwipe"
+    v-swipe.left.right="handleSwipe"
   >
     <!-- @swipe="handleSwipe($event)" -->
     <slot :current="state.currentItem"></slot>

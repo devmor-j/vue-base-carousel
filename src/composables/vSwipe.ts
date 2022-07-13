@@ -17,7 +17,7 @@ type SwipeOptions = {
 };
 
 export function initSwipeDirective(
-  options: SwipeOptions = { durationThreshold: 50, distanceThreshold: 50 }
+  options: SwipeOptions = { durationThreshold: 50, distanceThreshold: 10 }
 ) {
   const swipeState = reactive({
     startX: 0,
@@ -92,6 +92,7 @@ export function initSwipeDirective(
       swipeState.swipeDuration > (options.durationThreshold as number),
       swipeState.swipeDistance > (options.distanceThreshold as number),
       swipeState.swipeDirection !== "none",
+      swipeState.swipeDirection in binding.modifiers,
     ]);
 
     if (isSwipeValid) {
