@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref, onMounted, onUnmounted } from "vue";
 import useFullscreen from "@/composables/useFullscreen";
-import { vSwipe } from "@/composables/vSwipe";
+import { initSwipeDirective } from "@/composables/vSwipe";
 import type { SwipeEventDetail } from "@/composables/vSwipe";
 
 /* ====================================================== */
@@ -198,6 +198,12 @@ function onDotClick(index: number): void {
     return;
   }
 }
+
+/* ====================================================== */
+/*                  FEAT: Swipe Detection                 */
+/* ====================================================== */
+
+const vSwipe = initSwipeDirective();
 
 function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
   console.log(event.detail.direction);
