@@ -33,6 +33,7 @@ Both Carousels have these features:
   - Pressing *f* key (no interfere with *ctrl + f* which is binded to find action)
   - *Double clicking* on carousel (except it's arrow buttons, and pagination dots)
 - Enough accessibility support
+- Can load async content (images from APIs)
 
 ## Usage
 
