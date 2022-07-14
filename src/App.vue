@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 import ImageCarousel from "@/components/ImageCarousel.vue";
-import BaseCarousel from "./components/BaseCarousel.vue";
-import BaseCarouselItem from "./components/BaseCarouselItem.vue";
-// import BaseImage from "./components/BaseImage.vue";
+import BaseCarousel from "@/components/BaseCarousel.vue";
+import BaseCarouselItem from "@/components/BaseCarouselItem.vue";
+import getDogs from "@/services/dogApi";
+
+type carouselImage = {
+  path: string;
+  alt?: string;
+};
 
 const state = reactive({
-  carouselImages: [
+  carouselStaticImages: [
     // [ ] rename path to src
     { path: "/images/1.jpg", alt: "aerial view island" },
     { path: "/images/2.jpg", alt: "annular eclipse sunset" },
@@ -14,6 +19,7 @@ const state = reactive({
     { path: "/images/4.jpg", alt: "Fanjing Stairs" },
     { path: "/images/5.jpg", alt: "meteor on sky" },
   ],
+  carouselAsyncImages: [] as Array<carouselImage>,
   carouselContent: [
     {
       heading: "Heading",
@@ -47,11 +53,28 @@ const state = reactive({
     },
   ],
 });
+
+onMounted(async () => {
+  (await getDogs(5)).forEach((dog) => {
+    state.carouselAsyncImages.push({ path: dog.message });
+  });
+});
 </script>
 
 <template>
   <main>
-    <ImageCarousel :images="state.carouselImages" />
+    <h2>ImageCarousel: 5 <em>static</em> images</h2>
+
+    <ImageCarousel :images="state.carouselStaticImages" />
+
+    <h2>
+      ImageCarousel: 5 <em>async</em> images (calls
+      <a href="https://dog.ceo/dog-api/" target="_blank">dog api</a>)
+    </h2>
+
+    <ImageCarousel :images="state.carouselAsyncImages" />
+
+    <h2>BaseCarousel: Have full control over your own HTML</h2>
 
     <BaseCarousel
       v-slot="{ current }"
@@ -78,9 +101,11 @@ const state = reactive({
 <style scoped>
 main {
   display: flex;
+  width: min(100%, 48rem);
+  margin-inline: auto;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-block: 5rem;
   justify-content: center;
   min-height: 75vh;
   padding-inline: 0.5rem;
