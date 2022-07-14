@@ -40,10 +40,12 @@ const props = withDefaults(defineProps<Props>(), {
 /*                          STATE                         */
 /* ====================================================== */
 
-const ITEM = {
-  FirstItem: 0,
-  LastItem: props.totalItems - 1,
-};
+const ITEM = Object.preventExtensions(
+  Object.assign(Object.create(null), {
+    FirstItem: 0,
+    LastItem: props.totalItems - 1,
+  })
+);
 
 watchEffect(() => {
   ITEM.LastItem = props.totalItems - 1;
