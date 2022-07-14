@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, onMounted, onUnmounted } from "vue";
+import { reactive, ref, onMounted, onUnmounted, watchEffect } from "vue";
 import useFullscreen from "@/composables/useFullscreen";
 import { initSwipeDirective } from "@/composables/vSwipe";
 import type { SwipeEventDetail } from "@/composables/vSwipe";
@@ -40,13 +40,14 @@ const props = withDefaults(defineProps<Props>(), {
 /*                          STATE                         */
 /* ====================================================== */
 
-// enum item object, freezed with no prototype
-const ITEM = Object.freeze(
-  Object.assign(Object.create(null), {
-    FirstItem: 0,
-    LastItem: props.totalItems - 1,
-  })
-);
+const ITEM = {
+  FirstItem: 0,
+  LastItem: props.totalItems - 1,
+};
+
+watchEffect(() => {
+  ITEM.LastItem = props.totalItems - 1;
+});
 
 const state = reactive({
   currentItem: ITEM.FirstItem,
@@ -230,7 +231,6 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
     role="region"
     v-swipe.left.right="handleSwipe"
   >
-    <!-- @swipe="handleSwipe($event)" -->
     <slot :current="state.currentItem"></slot>
 
     <button
@@ -281,6 +281,8 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
   padding-block-end: v-bind(
     props.overlayDots===false ? "calc(2rem + 2ex + 2vh + 2px)": "unset"
   );
+  display: block;
+  width: 100%;
 }
 
 .carousel:fullscreen {
