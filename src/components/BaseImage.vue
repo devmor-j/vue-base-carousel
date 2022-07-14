@@ -18,6 +18,11 @@ defineProps<{
 }
 
 img {
+  display: block;
+  margin-inline: auto;
+  object-fit: contain;
+  width: 100%;
+  max-height: 100vh;
   max-width: 100%;
   transition-duration: var(--transition-duration);
   transition-property: transform;
