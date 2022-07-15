@@ -23,6 +23,7 @@ type Props = {
   dotButton?: string;
   hideDots?: boolean;
   overlayDots?: boolean;
+  hideCounter?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
@@ -32,8 +33,9 @@ const props = withDefaults(defineProps<Props>(), {
   maxWidth: "40rem",
   prevButton: "&#65513;",
   nextButton: "&#65515;",
-  dotButton: "&#149;",
+  dotButton: "&#9673;",
   overlayDots: false,
+  hideCounter: false,
 });
 
 /* ====================================================== */
@@ -233,6 +235,10 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
     role="region"
     v-swipe.left.right="handleSwipe"
   >
+    <small v-if="props.hideCounter === false" class="counter"
+      >{{ state.currentItem + 1 }}/{{ props.totalItems }}</small
+    >
+
     <slot :current="state.currentItem"></slot>
 
     <button
@@ -253,13 +259,13 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
       v-html="props.nextButton"
     ></button>
 
-    <div class="pagination" ref="paginationEl" v-if="hideDots === false">
+    <div class="pagination" ref="paginationEl" v-if="props.hideDots === false">
       <button
         v-for="(_, i) in props.totalItems"
         :key="`pagination-dot-${i}`"
         @click="onDotClick(i)"
         :aria-label="`go to item ${i + 1}`"
-        v-html="props.dotButton"
+        v-html="state.currentItem === i ? props.dotButton : '&#149;'"
       ></button>
     </div>
   </section>
@@ -428,7 +434,7 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
 .pagination {
   --dot-font-size: calc(1.75rem + 0.5vw);
   --dot-color-alpha: 0.4;
-  color: rgb(0 0 0 / var(--dot-color-alpha));
+  color: rgb(255 255 255 / var(--dot-color-alpha));
   max-width: fit-content;
   margin-inline: auto;
   padding-block: 0.5rem;
@@ -440,9 +446,9 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
   left: 0;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   .pagination {
-    color: rgb(255 255 255 / var(--dot-color-alpha));
+    color: rgb(0 0 0 / var(--dot-color-alpha));
   }
 }
 
@@ -467,7 +473,7 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
 }
 
 .pagination > button:hover {
-  transform: scale(1.5);
+  transform: scale(1.25);
 }
 
 .pagination > button:active {
@@ -475,7 +481,7 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
     rgb(255 255 255 / calc(1.5 * var(--dot-color-alpha))),
     transparent 25%
   );
-  transform: scale(2);
+  transform: scale(1.5);
 }
 
 .carousel:hover:not(:fullscreen) .pagination > button {
@@ -492,5 +498,35 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
 
 .pagination:hover > button {
   opacity: 1;
+}
+
+/* ====================================================== */
+/*                      ITEM COUNTER                      */
+/* ====================================================== */
+
+.counter {
+  /* background-color: rgb(0 0 0 / 0.2); */
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: rgb(255 255 255 / 0.5);
+  background-color: rgb(0 0 0 / 0.1);
+  position: absolute;
+  padding-inline: 0.5rem;
+  padding-block: 0.25rem;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition-duration: var(--transition-duration);
+  transition-property: opacity, font-size;
+}
+
+.carousel:hover:not(:fullscreen) .counter {
+  opacity: 1;
+}
+
+.carousel:fullscreen:not(:focus-visible) .counter {
+  opacity: 1;
+  font-size: 1rem;
 }
 </style>
