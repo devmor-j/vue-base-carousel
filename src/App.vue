@@ -6,18 +6,17 @@ import BaseCarouselItem from "@/components/BaseCarouselItem.vue";
 import getDogs from "@/services/dogApi";
 
 type carouselImage = {
-  path: string;
+  src: string;
   alt?: string;
 };
 
 const state = reactive({
   carouselStaticImages: [
-    // [ ] rename path to src
-    { path: "/images/1.jpg", alt: "aerial view island" },
-    { path: "/images/2.jpg", alt: "annular eclipse sunset" },
-    { path: "/images/3.jpg", alt: "top view container ship" },
-    { path: "/images/4.jpg", alt: "Fanjing Stairs" },
-    { path: "/images/5.jpg", alt: "meteor on sky" },
+    { src: "/images/1.jpg", alt: "aerial view island" },
+    { src: "/images/2.jpg", alt: "annular eclipse sunset" },
+    { src: "/images/3.jpg", alt: "top view container ship" },
+    { src: "/images/4.jpg", alt: "Fanjing Stairs" },
+    { src: "/images/5.jpg", alt: "meteor on sky" },
   ],
   carouselAsyncImages: [] as Array<carouselImage>,
   carouselContent: [
@@ -56,7 +55,7 @@ const state = reactive({
 
 onMounted(async () => {
   (await getDogs(5)).forEach((dog) => {
-    state.carouselAsyncImages.push({ path: dog.message });
+    state.carouselAsyncImages.push({ src: dog.message });
   });
 });
 </script>

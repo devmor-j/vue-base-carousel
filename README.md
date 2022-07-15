@@ -5,7 +5,7 @@ Advanced Carousel component writtin in [Vue 3](https://vuejs.org/) and [TypeScri
 Two Carousel components:
 
 - [BaseCarousel](src/components/BaseCarousel.vue) for general use with [Vue's slot](https://vuejs.org/guide/components/slots.html) support
-- [ImageCarousel](src/components/ImageCarousel.vue) specifically designed for image slideshow (has a prop to get all image paths)
+- [ImageCarousel](src/components/ImageCarousel.vue) specifically designed for image slideshow (has a prop to get all image sources)
 
 ## Carousel Features
 
@@ -47,8 +47,8 @@ import ImageCarousel from "@/components/ImageCarousel.vue";
 // your images should be an array of objects like below (alt is optional)
 const state = reactive({
   carouselImages: [
-    { path: "/images/1.jpg", alt: "aerial view island" },
-    { path: "/images/2.jpg", alt: "annular eclipse sunset" },
+    { src: "/images/1.jpg", alt: "aerial view island" },
+    { src: "/images/2.jpg", alt: "annular eclipse sunset" },
     // and so forth...
   ],
 });

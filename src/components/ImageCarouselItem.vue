@@ -2,7 +2,7 @@
 import BaseImage from "@/components/BaseImage.vue";
 defineProps<{
   image: {
-    path: string;
+    src: string;
     alt?: string;
   };
 }>();
@@ -10,7 +10,7 @@ defineProps<{
 
 <template>
   <transition name="fade" mode="out-in" appear>
-    <BaseImage :src="image.path" :alt="image.alt" :draggable="false" />
+    <BaseImage :src="image.src" :alt="image.alt" :draggable="false" />
   </transition>
 </template>
 
