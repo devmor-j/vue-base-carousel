@@ -109,5 +109,6 @@ main {
   justify-content: center;
   min-height: 75vh;
   padding-inline: 0.5rem;
+  box-sizing: border-box;
 }
 </style>
