@@ -21,6 +21,7 @@ type Props = {
   prevButton?: string;
   nextButton?: string;
   dotButton?: string;
+  dotButtonActive?: string;
   hideDots?: boolean;
   overlayDots?: boolean;
   hideCounter?: boolean;
@@ -33,7 +34,8 @@ const props = withDefaults(defineProps<Props>(), {
   maxWidth: "40rem",
   prevButton: "&#65513;",
   nextButton: "&#65515;",
-  dotButton: "&#9673;",
+  dotButton: "&#149;",
+  dotButtonActive: "&#9673;",
   overlayDots: false,
   hideCounter: false,
 });
@@ -265,7 +267,9 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
         :key="`pagination-dot-${i}`"
         @click="onDotClick(i)"
         :aria-label="`go to item ${i + 1}`"
-        v-html="state.currentItem === i ? props.dotButton : '&#149;'"
+        v-html="
+          state.currentItem === i ? props.dotButtonActive : props.dotButton
+        "
       ></button>
     </div>
   </section>
