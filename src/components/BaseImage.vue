@@ -1,9 +1,14 @@
 <script setup lang="ts">
-defineProps<{
+type Props = {
   src: string;
   alt?: string;
   draggable?: boolean;
-}>();
+  width?: string; // ex: "unset", "50%", "100%", "100vw"
+};
+
+const props = withDefaults(defineProps<Props>(), {
+  width: "100%",
+});
 </script>
 
 <template>
@@ -18,14 +23,14 @@ defineProps<{
 }
 
 img {
-  display: block;
-  margin-inline: auto;
-  object-fit: contain;
-  width: 100%;
-  max-height: 100vh;
+  width: v-bind(props.width);
   max-width: 100%;
   transition-duration: var(--transition-duration);
   transition-property: transform;
+  display: block;
+  max-height: 100vh;
+  margin-inline: auto;
+  object-fit: contain;
 }
 
 img:hover {
