@@ -1,6 +1,6 @@
 {
   "name": "vue_carousel",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "author": "Morteza Jamshidi <devmor.j@gmail.com>",
   "scripts": {
     "dev": "vite",
