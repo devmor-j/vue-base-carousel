@@ -1,7 +1,7 @@
 {
   "name": "vue-carousel",
   "private": false,
-  "version": "0.3.5",
+  "version": "0.4.0",
   "description": "Advanced and accessible carousel components for vue 3",
   "author": "Morteza Jamshidi <devmor.j@gmail.com>",
   "license": "MIT",
