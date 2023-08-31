@@ -290,20 +290,14 @@ function handleSwipe(event: CustomEvent<SwipeEventDetail>) {
   box-shadow: 0 0 18px rgb(0 0 0 / 0.25);
   transition-duration: var(--transition-duration);
   transition-property: transform;
-  padding-block-end: v-bind(
-    props.overlayDots===false ? "calc(2rem + 2ex + 2vh + 2px)": "unset"
-  );
+  padding-block-end: v-bind(props.overlayDots===false ? "calc(2rem + 2ex + 2vh + 2px)": "unset");
   display: block;
   width: 100%;
 }
 
 .carousel:fullscreen {
   /* padding-inline: calc(1rem + 1.05 * (2px + var(--arrow-font-size) + var(--arrow-padding-inline))); */
-  padding-inline: v-bind(
-    props.fullscreenPadding===true ?
-      "calc(1rem + 1.05 * (2px + var(--arrow-font-size) + var(--arrow-padding-inline)))":
-      "unset"
-  );
+  padding-inline: v-bind(props.fullscreenPadding===true ? "calc(1rem + 1.05 * (2px + var(--arrow-font-size) + var(--arrow-padding-inline)))":"unset");
 }
 
 .carousel:focus-within {
