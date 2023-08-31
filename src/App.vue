@@ -3,7 +3,7 @@ import { reactive, onMounted } from "vue";
 import ImageCarousel from "@/components/ImageCarousel.vue";
 import BaseCarousel from "@/components/BaseCarousel.vue";
 import BaseCarouselItem from "@/components/BaseCarouselItem.vue";
-import getDogs from "@/services/dogApi";
+import getDogs from "@/api/dogApi";
 
 type carouselImage = {
   src: string;
