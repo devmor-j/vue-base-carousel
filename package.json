@@ -5,13 +5,14 @@
   "description": "Advanced and accessible carousel components for vue 3",
   "author": "Morteza Jamshidi <devmor.j@gmail.com>",
   "license": "MIT",
-  "main": "./dist/fileName.umd.js",
-  "module": "./dist/fileName.js",
+  "type": "module",
+  "main": "./dist/vueCarousel.umd.js",
+  "module": "./dist/vueCarousel.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/fileName.esm.js",
-      "require": "./dist/fileName.js"
+      "import": "./dist/vueCarousel.esm.js",
+      "require": "./dist/vueCarousel.js"
     }
   },
   "files": [

@@ -12,11 +12,26 @@ type carouselImage = {
 
 const state = reactive({
   carouselStaticImages: [
-    { src: "/images/1.jpg", alt: "aerial view island" },
-    { src: "/images/2.jpg", alt: "annular eclipse sunset" },
-    { src: "/images/3.jpg", alt: "top view container ship" },
-    { src: "/images/4.jpg", alt: "Fanjing Stairs" },
-    { src: "/images/5.jpg", alt: "meteor on sky" },
+    {
+      src: new URL("./images/1.jpg", import.meta.url).href,
+      alt: "aerial view island",
+    },
+    {
+      src: new URL("./images/2.jpg", import.meta.url).href,
+      alt: "annular eclipse sunset",
+    },
+    {
+      src: new URL("./images/3.jpg", import.meta.url).href,
+      alt: "top view container ship",
+    },
+    {
+      src: new URL("./images/4.jpg", import.meta.url).href,
+      alt: "Fanjing Stairs",
+    },
+    {
+      src: new URL("./images/5.jpg", import.meta.url).href,
+      alt: "meteor on sky",
+    },
   ],
   carouselAsyncImages: [] as Array<carouselImage>,
   carouselContent: [

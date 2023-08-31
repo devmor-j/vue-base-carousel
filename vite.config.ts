@@ -15,8 +15,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: fileURLToPath(new URL("./src/index.ts", import.meta.url)),
-      name: "TestComponent",
-      fileName: "test-component",
+      name: "VueCarousel",
+      fileName: "vue-carousel",
     },
     rollupOptions: {
       external: ["vue"],
