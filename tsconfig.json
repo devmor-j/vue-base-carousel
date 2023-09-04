@@ -24,6 +24,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/composables/*.ts", "src/**/*.d.ts", "src/components/*.vue"],
+  "include": [
+    "src/index.ts",
+    "src/composables/*.ts",
+    "src/**/*.d.ts",
+    "src/components/*.vue"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
