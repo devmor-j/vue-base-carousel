@@ -15,8 +15,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: fileURLToPath(new URL("./src/index.ts", import.meta.url)),
-      name: "VueCarousel",
-      fileName: "vue-carousel",
+      name: "VueBaseCarousel",
+      fileName: "vue-base-carousel",
+      formats: ["cjs", "es", "umd"],
     },
     rollupOptions: {
       external: ["vue"],
