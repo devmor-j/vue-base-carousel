@@ -8,9 +8,9 @@
   "type": "module",
   "main": "./dist/vue-base-carousel.js",
   "module": "./dist/vue-base-carousel.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/vue-base-carousel.js",
       "require": "./dist/vue-base-carousel.cjs"
     }
