@@ -41,9 +41,9 @@ Basically you need to import styles on a top level scope then use components whe
 
 ```html
 <script setup lang="ts">
-import { BaseCarousel, BaseCarouselItem } from "vue-base-carousel";
-import "vue-base-carousel/style.css"
-<script>
+  import { BaseCarousel, BaseCarouselItem } from "vue-base-carousel";
+  import "vue-base-carousel/style.css";
+</script>
 
 <template>
   <BaseCarousel v-slot="{ current }">
@@ -52,7 +52,7 @@ import "vue-base-carousel/style.css"
       v-show="current === index"
       :key="index"
     >
-      <h1> SLIDE {{ value }} </h1>
+      <h1>SLIDE {{ value }}</h1>
     </BaseCarouselItem>
   </BaseCarousel>
 </template>
