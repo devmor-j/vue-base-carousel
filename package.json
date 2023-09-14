@@ -2,7 +2,7 @@
   "name": "vue-base-carousel",
   "private": false,
   "version": "0.4.5",
-  "description": "Advanced and accessible carousel components for vue 3",
+  "description": "Basic accessible carousel components for vue 3 with typescript",
   "author": "Morteza Jamshidi <devmor.j@gmail.com>",
   "license": "MIT",
   "type": "module",
@@ -23,7 +23,7 @@
     "dist"
   ],
   "keywords": [
-    "vue carousel",
+    "vue base carousel",
     "slider",
     "slideshow",
     "gallery"

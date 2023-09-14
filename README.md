@@ -1,8 +1,8 @@
-# Vue Carousel
+# Vue Base Carousel
 
-Advanced Carousel component writtin in [Vue 3](https://vuejs.org/) and [TypeScript](https://www.typescriptlang.org/)
+Basic Carousel component writtin in [Vue 3](https://vuejs.org/) and [TypeScript](https://www.typescriptlang.org/)
 
-Two Carousel components:
+Two CarBasicousel components:
 
 - [BaseCarousel](src/components/BaseCarousel.vue) for general use with [Vue's slot](https://vuejs.org/guide/components/slots.html) support
 - [ImageCarousel](src/components/ImageCarousel.vue) specifically designed for image slideshow (has a prop to get all image sources)
