@@ -37,6 +37,27 @@ Both Carousels have these features:
 
 ## Usage
 
+Basically you need to import styles on a top level scope then use components where ever you want. For example:
+
+```html
+<script setup lang="ts">
+import { BaseCarousel, BaseCarouselItem } from "vue-base-carousel";
+import "vue-base-carousel/style.css"
+<script>
+
+<template>
+  <BaseCarousel v-slot="{ current }">
+    <BaseCarouselItem
+      v-for="(value, index) in ['ONE', 'TWO', 'THREE']"
+      v-show="current === index"
+      :key="index"
+    >
+      <h1> SLIDE {{ value }} </h1>
+    </BaseCarouselItem>
+  </BaseCarousel>
+</template>
+```
+
 ### ImageCarousel
 
 ```html
