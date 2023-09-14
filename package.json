@@ -33,7 +33,7 @@
     "build": "vite build"
   },
   "bugs": {
-    "url": "https://github.com/devmor-j/vue-carousel/issues"
+    "url": "https://github.com/devmor-j/vue-base-carousel/issues"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
