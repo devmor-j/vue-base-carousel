@@ -13,11 +13,14 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/vue-base-carousel.js",
       "require": "./dist/vue-base-carousel.cjs"
+    },
+    "./style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
     }
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "keywords": [
     "vue carousel",
