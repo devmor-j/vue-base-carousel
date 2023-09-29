@@ -1,7 +1,7 @@
 {
   "name": "vue-base-carousel",
   "private": false,
-  "version": "0.4.8",
+  "version": "0.4.9",
   "description": "Basic accessible carousel components for vue 3 with typescript",
   "author": "Morteza Jamshidi <devmor.j@gmail.com>",
   "license": "MIT",
