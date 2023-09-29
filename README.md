@@ -7,7 +7,7 @@ Two CarBasicousel components:
 - [BaseCarousel](src/components/BaseCarousel.vue) for general use with [Vue's slot](https://vuejs.org/guide/components/slots.html) support
 - [ImageCarousel](src/components/ImageCarousel.vue) specifically designed for image slideshow (has a prop to get all image sources)
 
-![Image Carousel](./chrome-capture-2023-8-29.gif)
+![Image Carousel Preview GIF](./chrome-capture-2023-8-29.gif)
 
 ## Carousel Features
 
